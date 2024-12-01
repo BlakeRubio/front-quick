@@ -1,0 +1,76 @@
+{
+  "name": "@quick/cli",
+  "version": "1.0.0",
+  "packageManager": "pnpm@9.13.2",
+  "description": "快速构建admin-template相关项目的命令行工具",
+  "main": "bin/quick.mjs",
+  "engines": {
+    "node": ">=18.18.0",
+    "pnpm": ">=9.13.2"
+  },
+  "scripts": {
+    "dev": "esno src/index.ts",
+    "devc": "esno src/index.ts create",
+    "build": "tsup",
+    "typecheck": "tsc --noEmit",
+    "lint:eslint": "eslint --cache --max-warnings 0  \"src/**/*.ts\" --fix",
+    "lint:prettier": "prettier --write  \"src/**/*.{js,json,ts,md}\"",
+    "lint:lint-staged": "lint-staged -c ./.husky/lintstagedrc.js",
+    "lint:pretty": "pretty-quick --staged",
+    "lint": "pnpm lint:eslint && pnpm lint:prettier",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "pub": "pub",
+    "prepare": "husky install"
+  },
+  "bin": {
+    "quick": "bin/quick.mjs"
+  },
+  "files": [
+    "dist",
+    "bin"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "BlakeRubio"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "boxen": "5.1.2",
+    "cac": "^6.7.14",
+    "figlet": "^1.7.0",
+    "fs-extra": "^10.1.0",
+    "gradient-string": "^2.0.2",
+    "inquirer": "^8.2.6",
+    "log-symbols": "^4.1.0",
+    "ora": "^5.4.1",
+    "picocolors": "^1.0.0",
+    "progress-estimator": "^0.3.1",
+    "semver": "^7.5.4",
+    "simple-git": "^3.20.0",
+    "trash": "^8.1.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "@types/figlet": "^1.5.8",
+    "@types/fs-extra": "^9.0.13",
+    "@types/gradient-string": "^1.1.5",
+    "@types/inquirer": "^8.2.10",
+    "@types/node": "^18.18.9",
+    "@typescript-eslint/eslint-plugin": "^6.16.0",
+    "@typescript-eslint/parser": "^6.16.0",
+    "eslint": "^8.54.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "esno": "^4.0.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.3.0",
+    "prettier": "2.7.1",
+    "pretty-quick": "^3.1.3",
+    "tsup": "^8.0.1",
+    "typescript": "^5.3.3"
+  }
+}
