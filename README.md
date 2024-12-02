@@ -1,5 +1,4 @@
 <p align="center">快速构建vue-admin相关项目的命令行工具</p>
-```
 
 ## ⚙️ 用法
 
