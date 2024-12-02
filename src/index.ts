@@ -17,7 +17,7 @@ cli
   .option('-f, --force', '如果目标文件存在，则强制覆盖')
   // 指定项目从 github 下载
   .option('-g --github', '使用github模板地址')
-  .action(async () => {
+  .action(async (cmd) => {
     const projectName = await inputProjectName()
     const isDownloadForGithub = await chooseDownloadOrigin()
     create(projectName, undefined, isDownloadForGithub)
