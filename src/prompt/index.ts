@@ -52,3 +52,19 @@ export const chooseDownloadOrigin = async () => {
   ])
   return chooseDownloadOrigin
 }
+
+export const isOverwriteDir = async () => {
+  const { isOverwrite } = await inquirer.prompt([
+    // 返回值为promise
+    {
+      name: 'isOverwrite', // 与返回值对应
+      type: 'list', // list 类型
+      message: '目标文件已存在, 请选择一个操作',
+      choices: [
+        { name: '覆盖(会将同名项目移到本地回收站中)', value: true },
+        { name: '取消', value: false }
+      ]
+    }
+  ])
+  return isOverwrite
+}

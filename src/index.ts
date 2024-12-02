@@ -4,7 +4,7 @@ import { inputProjectName, chooseDownloadOrigin } from './prompt'
 import { create } from './template'
 import { version, templates } from './config'
 import { ProjectTemplate } from './types'
-import { clg } from './utils'
+import { clg, isExistsFile } from './utils'
 
 const cli = cac('quick')
 
@@ -19,6 +19,8 @@ cli
   .option('-g --github', '使用github模板地址')
   .action(async (cmd) => {
     const projectName = await inputProjectName()
+    const isExists = await isExistsFile(projectName, cmd)
+    if (isExists) return
     const isDownloadForGithub = await chooseDownloadOrigin()
     create(projectName, undefined, isDownloadForGithub)
   })

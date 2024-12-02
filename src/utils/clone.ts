@@ -1,11 +1,18 @@
+import path from 'path'
+import fs from 'fs-extra'
 import pc from 'picocolors'
 import { log, clg } from './log'
+import ora, { type Ora } from 'ora'
 import createLogger from 'progress-estimator'
 import gradientString from 'gradient-string'
 import simpleGit, { type SimpleGit, type SimpleGitOptions } from 'simple-git'
 import boxen, { Options as boxenOptions } from 'boxen'
 import { WIN_PLATFORM } from '../config'
+import { cmdOptions } from '../types'
+import trash from 'trash'
+import { isOverwriteDir } from '../prompt'
 
+const spinner: Ora = ora()
 
 const logger = createLogger(
   WIN_PLATFORM
@@ -42,9 +49,7 @@ export const clone = async (
     process.exit(1)
   }
 
-  const successMessage = gradientString('cyan', 'magenta').multiline(
-    'Hello! 欢迎使用 @quick/cli'
-  )
+  const successMessage = gradientString('cyan', 'magenta').multiline('Hello! 欢迎使用 @quick/cli')
   const boxenOprions: boxenOptions = {
     padding: 1,
     margin: 1,
@@ -57,4 +62,35 @@ export const clone = async (
   clg(` cd ${pc.cyan(projectName)}`)
   clg(' pnpm install')
   clg(' pnpm dev')
+}
+
+export const isExistsFile = async (projectName: string, options: cmdOptions) => {
+  // 获取当前目录
+  const cwd = process.cwd()
+  const targetDirectory = path.join(cwd, projectName)
+  if (fs.existsSync(targetDirectory)) {
+    if (options.force) {
+      // 将同名项目移到本地回收站中
+      await trash([targetDirectory])
+      return false
+    } else {
+      const isOVerwrite = await isOverwriteDir()
+      if (!isOVerwrite) {
+        clg(pc.green('取消成功'))
+        return true
+      } else {
+        try {
+          spinner.start('删除中...')
+          await trash([targetDirectory])
+          spinner.succeed(`${pc.green('成功删除')} ${pc.gray(projectName)}`)
+        } catch (error) {
+          spinner.fail(`${pc.red('覆盖失败, 请手动删除重名目录')}`)
+          process.exit(1)
+        }
+        return false
+      }
+    }
+  } else {
+    return false
+  }
 }
