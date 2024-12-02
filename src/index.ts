@@ -4,7 +4,7 @@ import { inputProjectName, chooseDownloadOrigin } from './prompt'
 import { create } from './template'
 import { version, templates } from './config'
 import { ProjectTemplate } from './types'
-import { clg, isExistsFile } from './utils'
+import { log, clg, isExistsFile } from './utils'
 
 const cli = cac('quick')
 
@@ -44,6 +44,14 @@ cli.help(() => {
         whitespaceBreak: true
       })
   )
+})
+
+// 无效命令
+cli.on('command:*', () => {
+  log.err(`无效的命令: ${cli.args.join(' ')}`)
+  cli.outputHelp()
+  // 退出
+  process.exit(1)
 })
 
 cli.parse()
