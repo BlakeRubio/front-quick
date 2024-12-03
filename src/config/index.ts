@@ -13,21 +13,21 @@ export const templates = {
   admin: {
     GITEE_URL: '', // gitee模板下载地址
     GITHUB_URL: '', // github模板下载地址
-    DESC: 'quick-admin 完整版本', // 模板描述
+    DESC: 'quick-admin 后台版本', // 模板描述
     BRANCH: 'master' // 分支
   },
   // H5
   h5: {
     GITEE_URL: '', // gitee模板下载地址
     GITHUB_URL: '', // github模板下载地址
-    DESC: 'quick-h5 完整版本', // 模板描述
+    DESC: 'quick-h5 H5 版本', // 模板描述
     BRANCH: 'master' // 分支
   },
   // mini-program
   minProgram: {
     GITEE_URL: '', // gitee模板下载地址
     GITHUB_URL: '', // github模板下载地址
-    DESC: 'quick-minProgram 完整版本', // 模板描述
+    DESC: 'quick-minProgram 小程序版本', // 模板描述
     BRANCH: 'master' // 分支
   }
 }
