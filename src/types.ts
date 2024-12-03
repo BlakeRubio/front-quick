@@ -1,3 +1,5 @@
+import { clg } from "./utils"
+
 export interface cmdOptions {
     '--': string[]
     f: boolean
@@ -6,4 +8,5 @@ export interface cmdOptions {
     github: boolean
   }
 
-export type ProjectTemplate = 'admin'
+export type ProjectTemplate = 'admin' | 'H5' | 'minProgram'
+clg
