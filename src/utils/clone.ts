@@ -8,9 +8,10 @@ import gradientString from 'gradient-string'
 import simpleGit, { type SimpleGit, type SimpleGitOptions } from 'simple-git'
 import boxen, { Options as boxenOptions } from 'boxen'
 import { WIN_PLATFORM } from '../config'
-import { cmdOptions } from '../types'
+import { cmdOptions, ProjectTemplate } from '../types'
 import trash from 'trash'
 import { isOverwriteDir } from '../prompt'
+import { templates } from '../config'
 
 const spinner: Ora = ora()
 
@@ -93,4 +94,22 @@ export const isExistsFile = async (projectName: string, options: cmdOptions) => 
   } else {
     return false
   }
+}
+
+
+export const hasTemplate = (templateName: ProjectTemplate): boolean => {
+  const templateKeys = Reflect.ownKeys(templates)
+  const hasTemplate = templateKeys.includes(templateName)
+  if (!hasTemplate) {
+    log.err(`当前模板类型 ${pc.cyan(`${templateName}`)} 不存在 \r\n `)
+    log.info(`请输入以下其中一种模板类型: `)
+    templateKeys.forEach((key) => {
+      clg(
+        pc.bold(
+          pc.green(`${key as string} `) + pc.gray(`${templates[key as ProjectTemplate].DESC}`)
+        )
+      )
+    })
+  }
+  return hasTemplate
 }
