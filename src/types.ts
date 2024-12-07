@@ -1,5 +1,3 @@
-import { clg } from "./utils"
-
 export interface cmdOptions {
     '--': string[]
     f: boolean
@@ -9,4 +7,4 @@ export interface cmdOptions {
   }
 
 export type ProjectTemplate = 'admin' | 'H5' | 'minProgram'
-clg
+export type NpmRegisterOrigin = 'taobao' | 'npm' | 'cnpm'
