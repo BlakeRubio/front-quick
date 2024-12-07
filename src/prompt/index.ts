@@ -1,24 +1,5 @@
 import inquirer from 'inquirer'
 
-export const chooseTemplate = async () => {
-  const { template } = await inquirer.prompt([
-    {
-      type: 'list',
-      name: 'template',
-      message: '选择一个项目模板',
-      choices: [
-        {
-          name: 'admin'
-        },
-        {
-          name: 'vue3'
-        }
-      ]
-    }
-  ])
-  return template
-}
-
 // 获取项目名称
 export const inputProjectName = async () => {
   const { projectName } = await inquirer.prompt([
@@ -51,6 +32,28 @@ export const chooseDownloadOrigin = async () => {
     }
   ])
   return chooseDownloadOrigin
+}
+
+export const chooseTemplate = async () => {
+  const { template } = await inquirer.prompt([
+    {
+      type: 'list',
+      name: 'template',
+      message: '选择一个项目模板',
+      choices: [
+        {
+          name: 'admin'
+        },
+        {
+          name: 'H5'
+        },
+        {
+          name: 'mini-program'
+        }
+      ]
+    }
+  ])
+  return template
 }
 
 export const isOverwriteDir = async () => {
