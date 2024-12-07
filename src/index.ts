@@ -29,7 +29,6 @@ cli
 cli
   .command('init <template-name> <project-name>', '创建一个新的项目')
   .option('-f, --force', '如果目标文件存在，则强制覆盖')
-  // 指定项目从 github 下载
   .option('-g --github', '使用github模板地址')
   .action(async (templateName, projectName, cmd) => {
     if (!hasTemplate(templateName)) return
@@ -70,4 +69,5 @@ cli.on('command:*', () => {
 // 检查无效选项 当命令错误时输出帮助信息
 checkOptions(cli)
 
+// 解析命令
 cli.parse()
