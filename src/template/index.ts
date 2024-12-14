@@ -1,7 +1,7 @@
 import { chooseTemplate } from '../prompt'
+import { checkNpmVersion, clone, clg } from '../utils'
+import { templates, version, name as npmName } from '../config'
 import type { ProjectTemplate } from '../types'
-import { clone } from '../utils'
-import { templates } from '../config'
 
 export const create = async (
   projectName: string,
@@ -11,9 +11,13 @@ export const create = async (
   const handleRun = async (name: ProjectTemplate) => {
     const { GITEE_URL, GITHUB_URL, BRANCH } = templates[name]
     const downloadSource = isDownloadForGithub ? GITHUB_URL : GITEE_URL
-
-    // 下载模板
-    clone(downloadSource, projectName, ['-b', `${BRANCH}`])
+    // 并行执行
+    Promise.all([
+      clone(downloadSource, projectName, ['-b', `${BRANCH}`]),
+      checkNpmVersion(version, npmName)
+    ]).then((res) => {
+      res[1] && clg(res[1])
+    })
   }
   if (templateName) {
     handleRun(templateName)
